@@ -12,6 +12,15 @@ pub struct VaccinationRecord {
 }
 
 #[contracttype]
+#[derive(Clone)]
+pub struct IssuerRecord {
+    pub name: String,
+    pub license: String,
+    pub country: String,
+    pub authorized: bool,
+}
+
+#[contracttype]
 pub enum DataKey {
     Admin,
     Initialized,

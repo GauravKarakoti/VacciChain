@@ -1,5 +1,5 @@
 use soroban_sdk::{Env, Address, String, Vec};
-use crate::storage::{DataKey, VaccinationRecord};
+use crate::storage::{DataKey, VaccinationRecord, IssuerRecord};
 use crate::events;
 
 pub fn mint_vaccination(
@@ -16,7 +16,8 @@ pub fn mint_vaccination(
     let is_authorized: bool = env
         .storage()
         .persistent()
-        .get(&DataKey::Issuer(issuer.clone()))
+        .get::<DataKey, IssuerRecord>(&DataKey::Issuer(issuer.clone()))
+        .map(|r| r.authorized)
         .unwrap_or(false);
     if !is_authorized {
         panic!("unauthorized issuer");
