@@ -3,6 +3,7 @@ import { useAuth } from '../hooks/useFreighter';
 import { useVaccination } from '../hooks/useVaccination';
 import { usePagination } from '../hooks/usePagination';
 import NFTCard from '../components/NFTCard';
+import RecordDetailModal from '../components/RecordDetailModal';
 
 const styles = {
   page: { maxWidth: 700, margin: '2rem auto', padding: '0 1rem' },
