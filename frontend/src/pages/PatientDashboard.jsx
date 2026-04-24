@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useFreighter';
 import { useVaccination } from '../hooks/useVaccination';
 import NFTCard from '../components/NFTCard';
+import RecordDetailModal from '../components/RecordDetailModal';
 
 const styles = {
   page: { maxWidth: 700, margin: '2rem auto', padding: '0 1rem' },
@@ -12,6 +13,7 @@ export default function PatientDashboard() {
   const { publicKey, connect } = useAuth();
   const { fetchRecords, loading, error } = useVaccination();
   const [records, setRecords] = useState([]);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
     if (publicKey) {
@@ -41,7 +43,8 @@ export default function PatientDashboard() {
       {!loading && records.length === 0 && (
         <p style={{ color: '#94a3b8' }}>No vaccination records found.</p>
       )}
-      {records.map((r) => <NFTCard key={r.token_id} record={r} />)}
+      {records.map((r) => <NFTCard key={r.token_id} record={r} onClick={() => setSelectedRecord(r)} />)}
+      <RecordDetailModal record={selectedRecord} onClose={() => setSelectedRecord(null)} />
     </div>
   );
 }

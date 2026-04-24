@@ -1,12 +1,22 @@
-export default function NFTCard({ record }) {
+export default function NFTCard({ record, onClick }) {
   return (
-    <div style={{
-      background: '#1e293b',
-      border: '1px solid #334155',
-      borderRadius: 12,
-      padding: '1.25rem',
-      marginBottom: '1rem',
-    }}>
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick?.()}
+      style={{
+        background: '#1e293b',
+        border: '1px solid #334155',
+        borderRadius: 12,
+        padding: '1.25rem',
+        marginBottom: '1rem',
+        cursor: 'pointer',
+        transition: 'border-color 0.15s',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#38bdf8')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#334155')}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: '1.1rem', fontWeight: 600, color: '#38bdf8' }}>
           💉 {record.vaccine_name}
