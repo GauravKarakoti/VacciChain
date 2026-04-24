@@ -2,11 +2,12 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const StellarSdk = require('@stellar/stellar-sdk');
 const { buildChallenge, verifyChallenge } = require('../stellar/sep10');
+const { sep10Limiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
 // POST /auth/sep10 — generate challenge
-router.post('/sep10', async (req, res) => {
+router.post('/sep10', sep10Limiter, async (req, res) => {
   const { public_key } = req.body;
   if (!public_key) return res.status(400).json({ error: 'public_key required' });
 

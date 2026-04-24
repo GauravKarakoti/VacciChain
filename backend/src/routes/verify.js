@@ -2,6 +2,7 @@ const express = require('express');
 const StellarSdk = require('@stellar/stellar-sdk');
 const { validateStellarPublicKey } = require('../middleware/wallet');
 const { simulateContract } = require('../stellar/soroban');
+const { verifyLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
