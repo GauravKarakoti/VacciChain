@@ -19,7 +19,7 @@ const styles = {
 
 export default function PatientDashboard() {
   const { publicKey, connect } = useAuth();
-  const { fetchRecords, loading, error } = useVaccination();
+  const { fetchRecords, loading } = useVaccination();
   const [records, setRecords] = useState([]);
   const { currentItems, page, totalPages, goTo, reset, total } = usePagination(records);
 

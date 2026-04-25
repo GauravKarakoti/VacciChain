@@ -34,7 +34,7 @@ const EMPTY_FORM = { patient_address: '', vaccine_name: '', date_administered: '
 
 export default function IssuerDashboard() {
   const { publicKey, role, connect } = useAuth();
-  const { issueVaccination, loading, error } = useVaccination();
+  const { issueVaccination, loading } = useVaccination();
 
   const [form, setForm] = useState(() => {
     try {
@@ -70,10 +70,8 @@ export default function IssuerDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess(null);
     const result = await issueVaccination(form);
     if (result) {
-      setSuccess(`Vaccination NFT minted! Token ID: ${result.token_id}`);
       setForm(EMPTY_FORM);
       sessionStorage.removeItem(FORM_KEY);
     }
