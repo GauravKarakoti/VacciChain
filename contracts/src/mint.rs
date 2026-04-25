@@ -59,6 +59,7 @@ pub fn mint_vaccination(
         date_administered,
         issuer: issuer.clone(),
         timestamp: env.ledger().timestamp(),
+        schema_version: 1,
         revoked: false,
     };
 

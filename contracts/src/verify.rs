@@ -30,6 +30,9 @@ pub fn verify_vaccination(env: &Env, wallet: Address) -> (bool, Vec<VaccinationR
     for i in 0..tokens.len() {
         let tid = tokens.get(i).unwrap();
         if let Some(record) = env.storage().persistent().get::<DataKey, VaccinationRecord>(&DataKey::Token(tid)) {
+            // Future-proofing: Here we could check record.schema_version 
+            // and transform the record if needed before adding to the list.
+            records.push_back(record);
             if !record.revoked {
                 records.push_back(record);
             }

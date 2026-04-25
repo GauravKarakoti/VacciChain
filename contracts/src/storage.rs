@@ -13,6 +13,7 @@ pub struct VaccinationRecord {
     pub date_administered: String,
     pub issuer: Address,
     pub timestamp: u64,
+    pub schema_version: u32,
     pub revoked: bool,
 }
 
