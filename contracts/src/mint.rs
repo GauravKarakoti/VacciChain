@@ -1,6 +1,8 @@
 use soroban_sdk::{Env, Address, String, Vec};
 use crate::storage::{DataKey, VaccinationRecord, hash_address};
+use crate::storage::{DataKey, VaccinationRecord, IssuerRecord};
 use crate::events;
+use crate::ContractError;
 
 pub fn mint_vaccination(
     env: &Env,
@@ -8,7 +10,7 @@ pub fn mint_vaccination(
     vaccine_name: String,
     date_administered: String,
     issuer: Address,
-) -> u64 {
+) -> Result<u64, ContractError> {
     // Require issuer auth
     issuer.require_auth();
 
@@ -17,12 +19,14 @@ pub fn mint_vaccination(
         .storage()
         .persistent()
         .get(&DataKey::Issuer(hash_address(env, &issuer)))
+        .get::<DataKey, IssuerRecord>(&DataKey::Issuer(issuer.clone()))
+        .map(|r| r.authorized)
         .unwrap_or(false);
     if !is_authorized {
-        panic!("unauthorized issuer");
+        return Err(ContractError::Unauthorized);
     }
 
-    // Duplicate detection: check if patient already has this vaccine from this issuer
+    // Duplicate detection: (patient, vaccine_name, date_administered) must be unique
     let tokens: Vec<u64> = env
         .storage()
         .persistent()
@@ -36,8 +40,8 @@ pub fn mint_vaccination(
             .persistent()
             .get(&DataKey::Token(tid))
             .unwrap();
-        if record.vaccine_name == vaccine_name && record.issuer == issuer {
-            panic!("duplicate vaccination record");
+        if record.vaccine_name == vaccine_name && record.date_administered == date_administered {
+            return Err(ContractError::DuplicateRecord);
         }
     }
 
@@ -55,6 +59,7 @@ pub fn mint_vaccination(
         date_administered,
         issuer: issuer.clone(),
         timestamp: env.ledger().timestamp(),
+        revoked: false,
     };
 
     // Persist token
@@ -70,5 +75,5 @@ pub fn mint_vaccination(
 
     events::emit_minted(env, token_id, &patient, &vaccine_name, &issuer);
 
-    token_id
+    Ok(token_id)
 }

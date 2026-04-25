@@ -69,6 +69,15 @@
               "args": [
                 {
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
+                },
+                {
+                  "string": "General Hospital"
+                },
+                {
+                  "string": "LIC-12345"
+                },
+                {
+                  "string": "USA"
                 }
               ]
             }
@@ -177,6 +186,7 @@
                 },
                 {
                   "bytes": "03b07df31ca4bcd5754b472170dd2e99570c11b0f73d632d4ad64170ddff48e3"
+                  "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                 }
               ]
             },
@@ -197,12 +207,47 @@
                     },
                     {
                       "bytes": "03b07df31ca4bcd5754b472170dd2e99570c11b0f73d632d4ad64170ddff48e3"
+                      "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                     }
                   ]
                 },
                 "durability": "persistent",
                 "val": {
                   "bool": true
+                  "map": [
+                    {
+                      "key": {
+                        "symbol": "authorized"
+                      },
+                      "val": {
+                        "bool": true
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "country"
+                      },
+                      "val": {
+                        "string": "USA"
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "license"
+                      },
+                      "val": {
+                        "string": "LIC-12345"
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "name"
+                      },
+                      "val": {
+                        "string": "General Hospital"
+                      }
+                    }
+                  ]
                 }
               }
             },
