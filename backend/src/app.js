@@ -6,9 +6,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const vaccinationRoutes = require('./routes/vaccination');
 const verifyRoutes = require('./routes/verify');
-const eventsRoutes = require('./routes/events');
-const { initDb } = require('./indexer/db');
-const { startPoller } = require('./indexer/poller');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/vaccination', vaccinationRoutes);
 app.use('/verify', verifyRoutes);
-app.use('/events', eventsRoutes);
+app.use('/admin', adminRoutes);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
