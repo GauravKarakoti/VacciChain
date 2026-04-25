@@ -4,6 +4,7 @@ import PatientDashboard from './pages/PatientDashboard';
 import IssuerDashboard from './pages/IssuerDashboard';
 import VerifyPage from './pages/VerifyPage';
 import { AuthProvider } from './hooks/useFreighter';
+import FreighterBanner from './components/FreighterBanner';
 
 function NavLink({ to, children }) {
   const { pathname } = useLocation();
@@ -25,6 +26,7 @@ export default function App() {
         <NavLink to="/issuer">Issue</NavLink>
         <NavLink to="/verify">Verify</NavLink>
       </nav>
+      <FreighterBanner />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/patient" element={<PatientDashboard />} />
