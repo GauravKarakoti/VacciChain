@@ -36,7 +36,7 @@ export default function IssuerDashboard() {
     return (
       <div style={styles.page}>
         <p style={{ color: '#94a3b8', marginBottom: '1rem' }}>Connect your issuer wallet.</p>
-        <button style={styles.btn} onClick={connect}>Connect Wallet</button>
+        <button style={styles.btn} onClick={connect} aria-label="Connect issuer wallet">Connect Wallet</button>
       </div>
     );
   }
@@ -66,8 +66,9 @@ export default function IssuerDashboard() {
           { key: 'date_administered', label: 'Date Administered', placeholder: 'YYYY-MM-DD' },
         ].map(({ key, label, placeholder }) => (
           <div key={key}>
-            <p style={styles.label}>{label}</p>
+            <label htmlFor={key} style={styles.label}>{label}</label>
             <input
+              id={key}
               style={styles.input}
               placeholder={placeholder}
               value={form[key]}
@@ -76,12 +77,14 @@ export default function IssuerDashboard() {
             />
           </div>
         ))}
-        <button style={styles.btn} type="submit" disabled={loading}>
+        <button style={styles.btn} type="submit" disabled={loading} aria-disabled={loading}>
           {loading ? 'Minting…' : 'Issue Vaccination NFT'}
         </button>
       </form>
-      {error && <p style={{ color: '#f87171', marginTop: '1rem' }}>Error: {error}</p>}
-      {success && <p style={{ color: '#4ade80', marginTop: '1rem' }}>✅ {success}</p>}
+      <div aria-live="polite" aria-atomic="true">
+        {error && <p style={{ color: '#f87171', marginTop: '1rem' }} role="alert">Error: {error}</p>}
+        {success && <p style={{ color: '#4ade80', marginTop: '1rem' }}>✅ {success}</p>}
+      </div>
     </div>
   );
 }
