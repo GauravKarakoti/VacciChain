@@ -2,6 +2,7 @@ require('dotenv').config();
 const config = require('./config');
 const express = require('express');
 const cors = require('cors');
+const logger = require('./logger');
 
 const authRoutes = require('./routes/auth');
 const vaccinationRoutes = require('./routes/vaccination');
@@ -12,6 +13,12 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Request logging middleware
+app.use((req, _res, next) => {
+  logger.info('request', { method: req.method, path: req.path });
+  next();
+});
 
 app.use('/auth', authRoutes);
 app.use('/vaccination', vaccinationRoutes);
