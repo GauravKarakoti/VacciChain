@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useFreighter';
 import { useVaccination } from '../hooks/useVaccination';
+import ConfirmMintDialog from '../components/ConfirmMintDialog';
 
 const styles = {
   page: { maxWidth: 500, margin: '2rem auto', padding: '0 1rem' },
@@ -26,6 +27,7 @@ export default function IssuerDashboard() {
     }
   });
   const [success, setSuccess] = useState(null);
+  const [confirming, setConfirming] = useState(false);
 
   // Persist form draft on every change
   useEffect(() => {
@@ -45,9 +47,14 @@ export default function IssuerDashboard() {
     return <div style={styles.page}><p style={{ color: '#f87171' }}>Access denied: issuer role required.</p></div>;
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSuccess(null);
+    setConfirming(true);
+  };
+
+  const handleConfirm = async () => {
+    setConfirming(false);
     const result = await issueVaccination(form);
     if (result) {
       setSuccess(`Vaccination NFT minted! Token ID: ${result.token_id}`);
@@ -58,6 +65,13 @@ export default function IssuerDashboard() {
 
   return (
     <div style={styles.page}>
+      {confirming && (
+        <ConfirmMintDialog
+          record={form}
+          onConfirm={handleConfirm}
+          onCancel={() => setConfirming(false)}
+        />
+      )}
       <h2 style={{ marginBottom: '1.5rem', color: '#e2e8f0' }}>Issue Vaccination NFT</h2>
       <form style={styles.form} onSubmit={handleSubmit}>
         {[
