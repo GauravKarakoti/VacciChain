@@ -2,10 +2,10 @@ import { useAuth } from '../hooks/useFreighter';
 
 const styles = {
   page: { maxWidth: 700, margin: '4rem auto', padding: '0 1rem', textAlign: 'center' },
-  title: { fontSize: '3rem', fontWeight: 700, color: '#38bdf8', marginBottom: '1rem' },
-  sub: { color: '#94a3b8', fontSize: '1.1rem', marginBottom: '2rem' },
-  btn: { padding: '0.75rem 2rem', background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: 8, fontSize: '1rem' },
-  info: { marginTop: '1rem', color: '#94a3b8', fontSize: '0.9rem' },
+  title: { fontSize: '3rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '1rem' },
+  sub: { color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '2rem' },
+  btn: { padding: '0.75rem 2rem', background: 'var(--btn-primary)', color: '#fff', border: 'none', borderRadius: 8, fontSize: '1rem' },
+  info: { marginTop: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem' },
 };
 
 export default function Landing() {

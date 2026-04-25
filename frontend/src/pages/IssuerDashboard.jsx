@@ -85,7 +85,7 @@ export default function IssuerDashboard() {
 
   return (
     <div style={styles.page}>
-      <h2 style={{ marginBottom: '1.5rem', color: '#e2e8f0' }}>Issue Vaccination NFT</h2>
+      <h2 style={{ marginBottom: '1.5rem', color: 'var(--text)' }}>Issue Vaccination NFT</h2>
       <form style={styles.form} onSubmit={handleSubmit}>
         {[
           { key: 'patient_address', label: 'Patient Stellar Address', placeholder: 'G...' },

@@ -17,6 +17,8 @@ function NavLink({ to, children }) {
 }
 
 export default function App() {
+  const [dark, setDark] = useDarkMode();
+
   return (
     <AuthProvider>
       <nav aria-label="Main navigation" style={{ padding: '1rem 2rem', background: '#1e293b', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>

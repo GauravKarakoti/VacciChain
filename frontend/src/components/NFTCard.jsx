@@ -26,7 +26,7 @@ export default function NFTCard({ record, onClick }) {
         </span>
         <span style={{ fontSize: '0.75rem', color: '#94a3b8' }} aria-label={`Token ID ${record.token_id}`}>#{record.token_id}</span>
       </div>
-      <p style={{ color: '#94a3b8', marginTop: '0.5rem', fontSize: '0.9rem' }}>
+      <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
         Date: {record.date_administered}
       </p>
       <p style={{ color: '#94a3b8', fontSize: '0.8rem', marginTop: '0.25rem' }}>
