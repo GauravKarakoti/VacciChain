@@ -33,6 +33,8 @@ pub enum DataKey {
     PendingAdmin,
     AdminTransferExpiry,
     Issuer(BytesN<32>),
+    IssuerMeta(BytesN<32>),
+    IssuerList,
     PatientTokens(BytesN<32>),
     Token(u64),
     NextTokenId,

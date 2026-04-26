@@ -1,6 +1,5 @@
-use soroban_sdk::{Env, Address, String, Vec};
+use soroban_sdk::{Address, Env, String, Vec};
 use crate::storage::{DataKey, VaccinationRecord, hash_address};
-use crate::storage::{DataKey, VaccinationRecord, IssuerRecord};
 use crate::events;
 use crate::ContractError;
 use crate::validate_input_length;
@@ -23,8 +22,6 @@ pub fn mint_vaccination(
         .storage()
         .persistent()
         .get(&DataKey::Issuer(hash_address(env, &issuer)))
-        .get::<DataKey, IssuerRecord>(&DataKey::Issuer(issuer.clone()))
-        .map(|r| r.authorized)
         .unwrap_or(false);
     if !is_authorized {
         return Err(ContractError::Unauthorized);
