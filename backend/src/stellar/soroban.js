@@ -53,7 +53,7 @@ async function invokeContract(secretKey, method, args) {
     throw new Error(`Transaction failed: ${result.status}`);
   }
 
-  return result.returnValue;
+  return { returnValue: result.returnValue, hash: response.hash, ledger: result.ledger };
 }
 
 /**

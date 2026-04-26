@@ -30,7 +30,8 @@ router.post(
     ];
 
     const result = await invokeContract(process.env.ISSUER_SECRET_KEY, 'mint_vaccination', args);
-    const tokenId = StellarSdk.scValToNative(result);
+    const tokenId = StellarSdk.scValToNative(result.returnValue);
+    const timestamp = new Date().toISOString();
 
     audit({
       actor: req.user.publicKey,
@@ -40,7 +41,13 @@ router.post(
       meta: { token_id: tokenId, vaccine_name, date_administered },
     });
 
-    res.json({ success: true, token_id: tokenId });
+    res.json({
+      success: true,
+      tokenId,
+      transactionHash: result.hash,
+      ledger: result.ledger,
+      timestamp,
+    });
   } catch (err) {
     audit({
       actor: req.user.publicKey,
