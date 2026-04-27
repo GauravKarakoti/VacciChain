@@ -86,6 +86,20 @@ services:
         max-file: "3"
     restart: unless-stopped
 
+  backup:
+    build: ./backup
+    env_file: .env
+    volumes:
+      - vaccichain_db:/data
+    networks:
+      - vaccichain
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: unless-stopped
+
 networks:
   vaccichain:
     driver: bridge
